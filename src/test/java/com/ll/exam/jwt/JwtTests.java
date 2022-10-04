@@ -42,4 +42,15 @@ class JwtTests {
 
         assertThat(secretKey).isNotNull();
     }
+
+    @Test
+    @DisplayName("캐싱을 통해 SecretKey 객체가 하나만 생성된다.")
+    void t4() {
+        SecretKey secretKey1 = jwtProvider.getSecretKey();
+        SecretKey secretKey2 = jwtProvider.getSecretKey();
+        SecretKey secretKey3 = jwtProvider.getSecretKey();
+
+        assertThat(secretKey1 == secretKey2).isTrue();
+        assertThat(secretKey1 == secretKey3).isTrue();
+    }
 }
